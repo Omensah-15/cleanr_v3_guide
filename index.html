@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CleanR v3 — Complete Usage Guide</title>
-<!-- FIX: added crossorigin attribute required for font preconnect -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
@@ -36,10 +35,8 @@ body {
   line-height: 1.7;
 }
 
-/* ── Page layout ── */
 .page { max-width: 860px; margin: 0 auto; padding: 0 32px 80px; }
 
-/* ── Masthead ── */
 .masthead {
   border-bottom: 3px double var(--ink);
   padding: 56px 0 40px;
@@ -79,7 +76,6 @@ body {
   font-style: italic;
 }
 
-/* ── TOC ── */
 .toc-strip {
   background: var(--accent);
   color: #f5f0e8;
@@ -102,7 +98,6 @@ body {
 .toc-strip a:hover { color: #fff; }
 .toc-num { color: #5a7aa8; margin-right: 4px; }
 
-/* ── Sections ── */
 .section {
   padding: 52px 0 40px;
   border-bottom: 1px solid var(--rule);
@@ -144,7 +139,6 @@ h3 {
 
 p { margin-bottom: 16px; color: #2a2a2a; }
 
-/* ── Terminal blocks ── */
 .terminal {
   background: var(--accent);
   border-radius: 6px;
@@ -177,7 +171,6 @@ p { margin-bottom: 16px; color: #2a2a2a; }
 .t-body { padding: 20px 24px; overflow-x: auto; line-height: 1.65; }
 .t-body pre { white-space: pre; }
 
-/* Syntax colours */
 .tc  { color: #7dd3b0; }
 .tf  { color: #93c5fd; }
 .ta  { color: #fde68a; }
@@ -187,7 +180,6 @@ p { margin-bottom: 16px; color: #2a2a2a; }
 .ti  { color: #94a3b8; }
 .th  { color: #e2e8f0; font-weight: 600; }
 
-/* Copy button */
 .copy-btn {
   position: absolute;
   top: 46px; right: 14px;
@@ -206,7 +198,6 @@ p { margin-bottom: 16px; color: #2a2a2a; }
 .copy-btn:hover { background: #7dd3b0; color: #000; border-color: #7dd3b0; }
 .copy-btn.copied { background: #7dd3b0; color: #000; border-color: #7dd3b0; }
 
-/* ── Step cards ── */
 .steps { display: flex; flex-direction: column; gap: 2px; margin: 20px 0; }
 
 .step {
@@ -237,7 +228,6 @@ p { margin-bottom: 16px; color: #2a2a2a; }
 
 .step-content p { margin: 0; font-size: 0.9rem; color: #555; }
 
-/* ── Inline code ── */
 code {
   font-family: var(--mono);
   font-size: 0.8rem;
@@ -248,7 +238,6 @@ code {
   color: var(--blue);
 }
 
-/* ── Tabs ── */
 .tabs { margin: 20px 0; }
 
 .tab-nav {
@@ -280,7 +269,6 @@ code {
 .tab-panel { display: none; padding-top: 4px; }
 .tab-panel.active { display: block; }
 
-/* ── Output files ── */
 .output-list { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
 
 .output-item {
@@ -304,7 +292,6 @@ code {
 .output-item.blue  .output-name { color: var(--blue); }
 .output-desc { font-size: 0.88rem; color: #555; margin: 0; }
 
-/* ── Feature grid ── */
 .feat-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -333,7 +320,6 @@ code {
 }
 .feat-desc { font-size: 0.85rem; color: #555; margin: 0; line-height: 1.55; }
 
-/* ── Tag pills ── */
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px; }
 .tag {
   font-family: var(--mono);
@@ -348,7 +334,6 @@ code {
 .tag.a { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
 .tag.r { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
 
-/* ── Aside callouts ── */
 .callout {
   background: var(--cream);
   border-left: 3px solid var(--amber);
@@ -359,7 +344,6 @@ code {
 }
 .callout strong { color: var(--ink); font-weight: 600; }
 
-/* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: var(--paper); }
 ::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 3px; }
@@ -368,7 +352,6 @@ code {
 <body>
 <div class="page">
 
-<!-- ── Masthead ── -->
 <header class="masthead">
   <div class="masthead-eyebrow">Complete Usage Guide</div>
   <h1>CleanR <em>v3</em></h1>
@@ -389,7 +372,7 @@ code {
 <section class="section" id="install">
   <div class="section-label">01 — Setup</div>
   <h2>Installation</h2>
-  <p>CleanR installs as a regular Python package. Once installed, the <code>cleanr</code> command is available everywhere on your system.</p>
+  <p>CleanR installs as a regular Python package. Once installed, the <code>cleanr</code> command is available everywhere on your system — no virtual environment needed.</p>
 
   <div class="steps">
     <div class="step">
@@ -402,15 +385,22 @@ code {
     <div class="step">
       <div class="step-n">02</div>
       <div class="step-content">
-        <h4>Navigate into the cleanr_v3 folder</h4>
-        <p>The folder you downloaded — it contains <code>pyproject.toml</code> and the <code>cleanr/</code> directory.</p>
+        <h4>Add ~/.local/bin to your PATH (one time only)</h4>
+        <p>This makes pip-installed commands like <code>cleanr</code> available in every terminal session.</p>
       </div>
     </div>
     <div class="step">
       <div class="step-n">03</div>
       <div class="step-content">
-        <h4>Run one install command</h4>
-        <p>This installs CleanR and all dependencies (pandas, numpy, scipy, scikit-learn, openpyxl, chardet) and registers the <code>cleanr</code> command.</p>
+        <h4>Navigate into the Cleanr_v3 folder and install</h4>
+        <p>The folder contains <code>pyproject.toml</code> and the <code>cleanr/</code> package directory.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-content">
+        <h4>Verify it works</h4>
+        <p>Run <code>cleanr --help</code> from any directory. You should see the full flag reference.</p>
       </div>
     </div>
   </div>
@@ -418,29 +408,30 @@ code {
   <div class="terminal">
     <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Terminal</span></div>
     <div class="t-body">
-<pre><span class="tco"># Navigate to the folder</span>
-<span class="tc">cd</span> <span class="ta">path/to/cleanr_v3</span>
+<pre><span class="tco"># Step 2 — Add ~/.local/bin to PATH (run once, then restart your terminal)</span>
+<span class="tc">echo</span> <span class="ta">'export PATH="$HOME/.local/bin:$PATH"'</span> >> ~/.bashrc
+<span class="tc">source</span> <span class="ta">~/.bashrc</span>
 
-<span class="tco"># Install (-e means editable — you can edit the code and changes apply immediately)</span>
-<span class="tc">pip install</span> <span class="tf">-e</span> <span class="ta">.</span>
+<span class="tco"># Step 3 — Navigate to the project folder and install</span>
+<span class="tc">cd</span> <span class="ta">path/to/Cleanr_v3</span>
+<span class="tc">pip install</span> <span class="tf">-e</span> <span class="ta">.</span> <span class="tf">--break-system-packages</span>
 
-<span class="tco"># Verify it worked</span>
+<span class="tco"># Step 4 — Verify (works from any directory)</span>
 <span class="tc">cleanr</span> <span class="tf">--help</span></pre>
     </div>
-    <!-- FIX: removed inline onclick with unescaped quotes; all copy buttons now use data-copy + event delegation -->
-    <button class="copy-btn" data-copy="cd path/to/cleanr_v3&#10;pip install -e .&#10;cleanr --help">Copy</button>
+    <button class="copy-btn" data-copy="echo 'export PATH=&quot;$HOME/.local/bin:$PATH&quot;' >> ~/.bashrc&#10;source ~/.bashrc&#10;cd path/to/Cleanr_v3&#10;pip install -e . --break-system-packages&#10;cleanr --help">Copy</button>
   </div>
 
   <h3>Optional: Parquet file support</h3>
   <div class="terminal">
     <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
     <div class="t-body">
-<pre><span class="tc">pip install</span> <span class="tf">-e</span> <span class="ta">".[parquet]"</span>   <span class="tco"># adds pyarrow for .parquet input/output</span></pre>
+<pre><span class="tc">pip install</span> <span class="ta">pyarrow</span> <span class="tf">--break-system-packages</span>   <span class="tco"># adds .parquet input/output support</span></pre>
     </div>
   </div>
 
   <div class="callout">
-    <strong>After install</strong>, you can run <code>cleanr</code> from any directory — you do not need to be in the project folder.
+    <strong>After install</strong>, you can run <code>cleanr</code> from any directory in any terminal — no activation or setup needed.
   </div>
 </section>
 
@@ -664,7 +655,7 @@ code {
         <span class="tag r">Parquet*</span>
         <span class="tag g">GZ / BZ2 / XZ compressed</span>
       </div>
-      <p style="font-size:0.85rem;color:#666;margin-top:0">*Parquet requires <code>pip install pyarrow</code></p>
+      <p style="font-size:0.85rem;color:#666;margin-top:0">*Parquet requires <code>pip install pyarrow --break-system-packages</code></p>
 
       <h3>Output to a different format</h3>
       <div class="terminal">
@@ -706,18 +697,11 @@ code {
         <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">rules.json</span></div>
         <div class="t-body">
 <pre><span class="ti">[</span>
-  <span class="tco">/* age must be between 0 and 120 */</span>
   <span class="ti">{ "column": "age",     "type": "min",   "value": 0   },</span>
   <span class="ti">{ "column": "age",     "type": "max",   "value": 120 },</span>
-
-  <span class="tco">/* email must not be empty */</span>
   <span class="ti">{ "column": "email",   "type": "not_null" },</span>
-
-  <span class="tco">/* status must be one of these values */</span>
   <span class="ti">{ "column": "status",  "type": "allowed_values",</span>
     <span class="ti">"values": ["active", "inactive", "pending"] },</span>
-
-  <span class="tco">/* phone must match a pattern */</span>
   <span class="ti">{ "column": "phone",   "type": "regex",</span>
     <span class="ti">"pattern": "^\\+?[\\d\\s\\-().]{7,20}$" }</span>
 <span class="ti">]</span></pre>
@@ -809,7 +793,7 @@ code {
         <button class="copy-btn" data-copy="cleanr data.csv --report reports/quality.json --audit logs/audit.json">Copy</button>
       </div>
     </div>
-  </div><!-- /tabs -->
+  </div>
 </section>
 
 
@@ -930,23 +914,20 @@ age_schema = result[<span class="ta">"schema"</span>][<span class="ta">"age"</sp
 <span class="tf">from</span> cleanr.engine  <span class="tf">import</span> CleanREngine
 <span class="tf">import</span> pandas <span class="tf">as</span> pd
 
-<span class="tco"># Subclass CleanrPlugin — implement run() — that's it</span>
 <span class="tf">class</span> <span class="th">StandardiseCountry</span>(CleanrPlugin):
     name = <span class="ta">"standardise_country"</span>
 
     <span class="tf">def</span> run(<span class="ti">self</span>, df: pd.DataFrame) -> pd.DataFrame:
         <span class="tf">if</span> <span class="ta">"country"</span> <span class="tf">in</span> df.columns:
             df[<span class="ta">"country"</span>] = df[<span class="ta">"country"</span>].str.upper().str.strip()
-            <span class="tco"># Replace common variants</span>
             df[<span class="ta">"country"</span>] = df[<span class="ta">"country"</span>].replace({
                 <span class="ta">"UK"</span>: <span class="ta">"GBR"</span>, <span class="ta">"USA"</span>: <span class="ta">"USA"</span>, <span class="ta">"US"</span>: <span class="ta">"USA"</span>
             })
-            <span class="tco"># self.log() entries appear in the audit trail</span>
             <span class="ti">self</span>.log(<span class="ta">"Standardised country codes to ISO 3166-1 alpha-3"</span>)
         <span class="tf">return</span> df
 
 engine = CleanREngine()
-engine.register_plugin(StandardiseCountry())   <span class="tco"># runs at end of pipeline</span>
+engine.register_plugin(StandardiseCountry())
 engine.clean(Path(<span class="ta">"data.csv"</span>), Path(<span class="ta">"clean.csv"</span>))</pre>
     </div>
     <button class="copy-btn" data-copy='from cleanr.plugins import CleanrPlugin&#10;from cleanr.engine import CleanREngine&#10;import pandas as pd&#10;&#10;class StandardiseCountry(CleanrPlugin):&#10;    name = "standardise_country"&#10;&#10;    def run(self, df):&#10;        if "country" in df.columns:&#10;            df["country"] = df["country"].str.upper().str.strip()&#10;            self.log("Standardised country codes")&#10;        return df&#10;&#10;engine = CleanREngine()&#10;engine.register_plugin(StandardiseCountry())&#10;engine.clean("data.csv", "clean.csv")'>Copy</button>
@@ -1012,13 +993,9 @@ engine.clean(Path(<span class="ta">"data.csv"</span>), Path(<span class="ta">"cl
   </div>
 </section>
 
-</div><!-- /page -->
+</div>
 
 <script>
-// FIX: replaced all inline onclick handlers with event delegation.
-// Inline handlers containing quotes inside HTML attributes were breaking the HTML parser.
-
-// Tab switching
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', function() {
     const tabs = this.closest('.tabs');
@@ -1030,14 +1007,11 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-// Copy buttons — read text from data-copy attribute (supports &#10; for newlines)
 document.querySelectorAll('.copy-btn').forEach(btn => {
   btn.addEventListener('click', function() {
-    // innerHTML of data attribute decodes HTML entities like &#10;
     const tmp = document.createElement('textarea');
     tmp.innerHTML = this.dataset.copy;
     const text = tmp.value;
-
     navigator.clipboard.writeText(text).then(() => {
       this.textContent = 'Copied';
       this.classList.add('copied');
@@ -1049,7 +1023,6 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
   });
 });
 
-// Scroll-reveal
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.08 });
