@@ -25,8 +25,8 @@
   --blue: #1b4f8a;
   --mono: "IBM Plex Mono", monospace;
   --serif: "Fraunces", Georgia, serif;
-  --page-pad: clamp(16px, 4vw, 48px);
-  --max-w: 900px;
+  --page-pad: clamp(16px, 4vw, 72px);
+  --max-w: 1200px;
   --radius: 6px;
 }
 
@@ -62,7 +62,7 @@ body {
   margin-bottom: 14px;
 }
 .masthead h1 {
-  font-size: clamp(2.4rem, 8vw, 5rem);
+  font-size: clamp(2.4rem, 5vw, 5.5rem);
   font-weight: 700;
   letter-spacing: -.04em;
   line-height: 1.0;
@@ -70,9 +70,9 @@ body {
 .masthead h1 em { font-style: italic; font-weight: 300; color: #555; }
 .masthead-sub {
   margin-top: 18px;
-  font-size: clamp(.9rem, 2.5vw, 1.05rem);
+  font-size: clamp(.9rem, 1.4vw, 1.1rem);
   color: #555;
-  max-width: 560px;
+  max-width: 680px;
   font-weight: 300;
   font-style: italic;
 }
@@ -236,8 +236,9 @@ code {
   padding-top: 3px;
   letter-spacing: .05em;
 }
-.step-content h4 { font-size: .95rem; font-weight: 600; margin-bottom: 5px; letter-spacing: -.01em; }
-.step-content p  { margin: 0; font-size: .88rem; color: #555; }
+.step-content h4 { font-size: .95rem; font-weight: 600; margin-bottom: 6px; letter-spacing: -.01em; }
+.step-content p  { margin: 0 0 6px; font-size: .88rem; color: #555; }
+.step-content p:last-child { margin-bottom: 0; }
 
 /* ── Tabs ── */
 .tabs { margin: 18px 0; }
@@ -389,8 +390,22 @@ code {
       <div class="step">
         <div class="step-n">01</div>
         <div class="step-content">
-          <h4>Confirm Python 3.9 or newer</h4>
-          <p>Run <code>python3 --version</code> in your terminal. Any version from 3.9 onward works.</p>
+          <h4>Install Python 3.9 or newer</h4>
+          <p>Run <code>python3 --version</code> in your terminal. If the command is not found, or if the version is below 3.9, install Python before continuing.</p>
+          <p style="margin-top:10px;font-size:.88rem;color:#555;">
+            <strong style="color:var(--ink);">Linux (Debian / Ubuntu)</strong> — run
+            <code>sudo apt update &amp;&amp; sudo apt install python3 python3-pip -y</code>
+          </p>
+          <p style="font-size:.88rem;color:#555;">
+            <strong style="color:var(--ink);">macOS</strong> — install via Homebrew:
+            <code>brew install python3</code>, or download the official installer from
+            <code>python.org/downloads</code>
+          </p>
+          <p style="font-size:.88rem;color:#555;margin-bottom:0;">
+            <strong style="color:var(--ink);">Windows</strong> — download the installer from
+            <code>python.org/downloads</code>. During setup, check
+            <em>Add Python to PATH</em> before clicking Install.
+          </p>
         </div>
       </div>
       <div class="step">
@@ -418,6 +433,21 @@ code {
 
     <div class="terminal">
       <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Terminal</span></div>
+      <div class="t-body">
+<pre><span class="tco"># Linux (Debian / Ubuntu)</span>
+<span class="tc">sudo apt update</span> &amp;&amp; <span class="tc">sudo apt install</span> python3 python3-pip <span class="tf">-y</span>
+
+<span class="tco"># macOS (Homebrew)</span>
+<span class="tc">brew install</span> python3
+
+<span class="tco"># Confirm installation on any OS</span>
+<span class="tc">python3</span> <span class="tf">--version</span>    <span class="tco"># expected: Python 3.9 or higher</span></pre>
+      </div>
+      <button class="copy-btn" data-copy="python3 --version">Copy</button>
+    </div>
+
+    <div class="terminal">
+      <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Terminal — steps 2 to 4</span></div>
       <div class="t-body">
 <pre><span class="tco"># Step 2 — Add ~/.local/bin to PATH (run once, then restart your terminal)</span>
 <span class="tc">echo</span> <span class="ta">'export PATH="$HOME/.local/bin:$PATH"'</span> >> ~/.bashrc
