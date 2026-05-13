@@ -8,433 +8,859 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#0f0f0f;--paper:#f5f0e8;--cream:#ede8dc;--rule:#d4cec0;--accent:#1a1a2e;--green:#2d6a4f;--red:#c1121f;--amber:#9b5d00;--blue:#1b4f8a;--mono:"IBM Plex Mono",monospace;--serif:"Fraunces",Georgia,serif;--col:680px}
-html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7}
-.page{max-width:860px;margin:0 auto;padding:0 32px 80px}
-.masthead{border-bottom:3px double var(--ink);padding:56px 0 40px;margin-bottom:0}
-.masthead-eyebrow{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--amber);margin-bottom:16px}
-.masthead h1{font-size:clamp(2.8rem,7vw,5rem);font-weight:700;letter-spacing:-.04em;line-height:1.0;font-optical-sizing:auto}
-.masthead h1 em{font-style:italic;font-weight:300;color:#444}
-.masthead-sub{margin-top:20px;font-size:1.05rem;color:#555;max-width:560px;font-weight:300;font-style:italic}
-.toc-strip{background:var(--accent);color:#f5f0e8;padding:18px 32px;margin:0 -32px;display:flex;flex-wrap:wrap;gap:6px 24px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
-.toc-strip a{color:#c8d4e8;text-decoration:none;transition:color .15s}
-.toc-strip a:hover{color:#fff}
-.toc-num{color:#5a7aa8;margin-right:4px}
-.section{padding:52px 0 40px;border-bottom:1px solid var(--rule);opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s}
-.section.visible{opacity:1;transform:none}
-.section-label{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
-h2{font-size:2rem;font-weight:700;letter-spacing:-.03em;margin-bottom:24px;line-height:1.15}
-h3{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin:32px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--rule)}
-p{margin-bottom:16px;color:#2a2a2a}
-.terminal{background:var(--accent);border-radius:6px;overflow:hidden;margin:16px 0 24px;font-family:var(--mono);font-size:13px;position:relative}
-.t-bar{background:#111827;padding:10px 16px;display:flex;align-items:center;gap:7px}
-.dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
-.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
-.t-label{margin-left:auto;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#4a5568}
-.t-body{padding:20px 24px;overflow-x:auto;line-height:1.65}
-.t-body pre{white-space:pre}
-.tc{color:#7dd3b0}.tf{color:#93c5fd}.ta{color:#fde68a}.tco{color:#4a5568;font-style:italic}
-.tok{color:#86efac}.tw{color:#fca5a5}.ti{color:#94a3b8}.th{color:#e2e8f0;font-weight:600}
-.copy-btn{position:absolute;top:46px;right:14px;background:#1e293b;border:1px solid #334155;color:#64748b;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border-radius:4px;cursor:pointer;transition:all .15s}
-.copy-btn:hover,.copy-btn.copied{background:#7dd3b0;color:#000;border-color:#7dd3b0}
-.steps{display:flex;flex-direction:column;gap:2px;margin:20px 0}
-.step{display:grid;grid-template-columns:48px 1fr;gap:20px;align-items:start;padding:20px 0;border-bottom:1px solid var(--rule)}
-.step:last-child{border-bottom:none}
-.step-n{font-family:var(--mono);font-size:.75rem;font-weight:600;color:var(--rule);padding-top:3px;letter-spacing:.05em}
-.step-content h4{font-size:1rem;font-weight:600;margin-bottom:6px;letter-spacing:-.01em}
-.step-content p{margin:0;font-size:.9rem;color:#555}
-code{font-family:var(--mono);font-size:.8rem;background:var(--cream);border:1px solid var(--rule);padding:1px 6px;border-radius:3px;color:var(--blue)}
-.tabs{margin:20px 0}
-.tab-nav{display:flex;flex-wrap:wrap;gap:0;border-bottom:2px solid var(--ink);margin-bottom:0}
-.tab-btn{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:10px 18px;background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;cursor:pointer;color:#888;transition:all .15s}
-.tab-btn:hover{color:var(--ink)}
-.tab-btn.active{color:var(--ink);border-bottom-color:var(--amber)}
-.tab-panel{display:none;padding-top:4px}
-.tab-panel.active{display:block}
-.output-list{display:flex;flex-direction:column;gap:12px;margin:20px 0}
-.output-item{display:grid;grid-template-columns:3px 1fr;gap:20px}
-.output-item .bar{background:var(--green);border-radius:2px}
-.output-item.amber .bar{background:var(--amber)}
-.output-item.blue .bar{background:var(--blue)}
-.output-body{padding:14px 0}
-.output-name{font-family:var(--mono);font-size:.82rem;font-weight:600;color:var(--green);margin-bottom:4px}
-.output-item.amber .output-name{color:var(--amber)}
-.output-item.blue .output-name{color:var(--blue)}
-.output-desc{font-size:.88rem;color:#555;margin:0}
-.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:20px 0}
-@media(max-width:580px){.feat-grid{grid-template-columns:1fr}}
-.feat{background:var(--paper);padding:20px 22px;transition:background .15s}
-.feat:hover{background:var(--cream)}
-.feat-title{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:8px}
-.feat-desc{font-size:.85rem;color:#555;margin:0;line-height:1.55}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 20px}
-.tag{font-family:var(--mono);font-size:11px;font-weight:600;padding:4px 12px;border-radius:2px;letter-spacing:.08em}
-.tag.g{background:#d1fae5;color:#065f46;border:1px solid #a7f3d0}
-.tag.b{background:#dbeafe;color:#1e40af;border:1px solid #bfdbfe}
-.tag.a{background:#fef3c7;color:#92400e;border:1px solid #fde68a}
-.tag.r{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
-.callout{background:var(--cream);border-left:3px solid var(--amber);padding:16px 20px;margin:20px 0;font-size:.9rem;color:#444}
-.callout strong{color:var(--ink);font-weight:600}
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:var(--paper)}
-::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Tokens ── */
+:root {
+  --ink: #0f0f0f;
+  --paper: #f5f0e8;
+  --cream: #ede8dc;
+  --rule: #d4cec0;
+  --muted: #888;
+  --accent: #1a1a2e;
+  --green: #2d6a4f;
+  --red: #c1121f;
+  --amber: #9b5d00;
+  --blue: #1b4f8a;
+  --mono: "IBM Plex Mono", monospace;
+  --serif: "Fraunces", Georgia, serif;
+  --page-pad: clamp(16px, 4vw, 48px);
+  --max-w: 900px;
+  --radius: 6px;
+}
+
+/* ── Base ── */
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(15px, 2vw, 17px);
+  line-height: 1.7;
+}
+
+/* ── Page wrapper ── */
+.page {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--page-pad) 80px;
+}
+
+/* ── Masthead ── */
+.masthead {
+  border-bottom: 3px double var(--ink);
+  padding: clamp(32px, 6vw, 56px) 0 clamp(24px, 4vw, 40px);
+}
+.masthead-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 14px;
+}
+.masthead h1 {
+  font-size: clamp(2.4rem, 8vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -.04em;
+  line-height: 1.0;
+}
+.masthead h1 em { font-style: italic; font-weight: 300; color: #555; }
+.masthead-sub {
+  margin-top: 18px;
+  font-size: clamp(.9rem, 2.5vw, 1.05rem);
+  color: #555;
+  max-width: 560px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* ── TOC strip ── */
+.toc-strip {
+  background: var(--accent);
+  color: #f5f0e8;
+  padding: 14px var(--page-pad);
+  margin: 0 calc(-1 * var(--page-pad));
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.toc-strip a { color: #c8d4e8; text-decoration: none; transition: color .15s; white-space: nowrap; }
+.toc-strip a:hover { color: #fff; }
+.toc-num { color: #5a7aa8; margin-right: 4px; }
+
+/* ── Sections ── */
+.section {
+  padding: clamp(36px, 5vw, 52px) 0 clamp(28px, 4vw, 40px);
+  border-bottom: 1px solid var(--rule);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.section.visible { opacity: 1; transform: none; }
+.section-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 8px;
+}
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -.03em;
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+h3 {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin: 28px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+}
+p { margin-bottom: 14px; color: #2a2a2a; }
+
+/* ── Inline code ── */
+code {
+  font-family: var(--mono);
+  font-size: .78rem;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  padding: 1px 6px;
+  border-radius: 3px;
+  color: var(--blue);
+  word-break: break-word;
+}
+
+/* ── Terminal block ── */
+.terminal {
+  background: var(--accent);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 14px 0 22px;
+  font-family: var(--mono);
+  font-size: clamp(11px, 2vw, 13px);
+  position: relative;
+}
+.t-bar {
+  background: #111827;
+  padding: 9px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+.dot.r { background: #ff5f57; }
+.dot.y { background: #febc2e; }
+.dot.g { background: #28c840; }
+.t-label {
+  margin-left: auto;
+  font-size: 9px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: #4a5568;
+}
+.t-body {
+  padding: 18px 20px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  line-height: 1.65;
+}
+.t-body pre { white-space: pre; min-width: max-content; }
+.tc  { color: #7dd3b0; }
+.tf  { color: #93c5fd; }
+.ta  { color: #fde68a; }
+.tco { color: #4a5568; font-style: italic; }
+.tok { color: #86efac; }
+.tw  { color: #fca5a5; }
+.ti  { color: #94a3b8; }
+.th  { color: #e2e8f0; font-weight: 600; }
+
+/* ── Copy button ── */
+.copy-btn {
+  position: absolute;
+  top: 42px;
+  right: 12px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #64748b;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+  z-index: 1;
+}
+.copy-btn:hover, .copy-btn.copied {
+  background: #7dd3b0;
+  color: #000;
+  border-color: #7dd3b0;
+}
+/* On very small screens, hide copy button to avoid overlap */
+@media (max-width: 380px) { .copy-btn { display: none; } }
+
+/* ── Steps ── */
+.steps { display: flex; flex-direction: column; gap: 2px; margin: 18px 0; }
+.step {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.step:last-child { border-bottom: none; }
+.step-n {
+  font-family: var(--mono);
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--rule);
+  padding-top: 3px;
+  letter-spacing: .05em;
+}
+.step-content h4 { font-size: .95rem; font-weight: 600; margin-bottom: 5px; letter-spacing: -.01em; }
+.step-content p  { margin: 0; font-size: .88rem; color: #555; }
+
+/* ── Tabs ── */
+.tabs { margin: 18px 0; }
+.tab-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 0;
+}
+.tab-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 9px 14px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  color: #888;
+  transition: color .15s, border-color .15s;
+  white-space: nowrap;
+}
+.tab-btn:hover  { color: var(--ink); }
+.tab-btn.active { color: var(--ink); border-bottom-color: var(--amber); }
+.tab-panel { display: none; padding-top: 4px; }
+.tab-panel.active { display: block; }
+
+/* Scrollable tab nav on narrow screens */
+.tab-nav-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.tab-nav-wrap .tab-nav { flex-wrap: nowrap; }
+
+/* ── Output list ── */
+.output-list { display: flex; flex-direction: column; gap: 12px; margin: 18px 0; }
+.output-item { display: grid; grid-template-columns: 3px 1fr; gap: 18px; }
+.output-item .bar { background: var(--green); border-radius: 2px; }
+.output-item.amber .bar { background: var(--amber); }
+.output-item.blue  .bar { background: var(--blue); }
+.output-body { padding: 12px 0; }
+.output-name {
+  font-family: var(--mono);
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--green);
+  margin-bottom: 4px;
+  word-break: break-word;
+}
+.output-item.amber .output-name { color: var(--amber); }
+.output-item.blue  .output-name { color: var(--blue); }
+.output-desc { font-size: .86rem; color: #555; margin: 0; }
+
+/* ── Feature grid ── */
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 18px 0;
+}
+.feat {
+  background: var(--paper);
+  padding: 18px 20px;
+  transition: background .15s;
+}
+.feat:hover { background: var(--cream); }
+.feat-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 7px;
+}
+.feat-desc { font-size: .83rem; color: #555; margin: 0; line-height: 1.55; }
+
+/* ── Tags ── */
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 18px; }
+.tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 3px;
+  letter-spacing: .07em;
+}
+.tag.g { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+.tag.b { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+.tag.a { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+.tag.r { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+/* ── Callout ── */
+.callout {
+  background: var(--cream);
+  border-left: 3px solid var(--amber);
+  padding: 14px 18px;
+  margin: 18px 0;
+  font-size: .88rem;
+  color: #444;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.callout strong { color: var(--ink); font-weight: 600; }
+
+/* ── Scrollbar styling ── */
+::-webkit-scrollbar          { width: 5px; height: 5px; }
+::-webkit-scrollbar-track    { background: var(--paper); }
+::-webkit-scrollbar-thumb    { background: var(--rule); border-radius: 3px; }
+
+/* ── Responsive tweaks ── */
+@media (max-width: 520px) {
+  .step { grid-template-columns: 36px 1fr; gap: 12px; }
+  .t-body { padding: 14px 14px; }
+}
 </style>
 </head>
 <body>
 <div class="page">
 
-<header class="masthead">
-  <div class="masthead-eyebrow">Complete Usage Guide</div>
-  <h1>CleanR <em>v3</em></h1>
-  <p class="masthead-sub">Production data cleaning engine — from installation to every feature, with working examples.</p>
-</header>
+  <!-- ── Masthead ── -->
+  <header class="masthead">
+    <div class="masthead-eyebrow">Complete Usage Guide</div>
+    <h1>CleanR <em>v3</em></h1>
+    <p class="masthead-sub">Production data cleaning engine — from installation to every feature, with working examples.</p>
+  </header>
 
-<nav class="toc-strip">
-  <a href="#install"><span class="toc-num">01</span>Install</a>
-  <a href="#first-run"><span class="toc-num">02</span>First Run</a>
-  <a href="#features"><span class="toc-num">03</span>All Features</a>
-  <a href="#outputs"><span class="toc-num">04</span>Output Files</a>
-  <a href="#python-api"><span class="toc-num">05</span>Python API</a>
-  <a href="#summary"><span class="toc-num">06</span>What Runs Automatically</a>
-</nav>
+  <!-- ── TOC ── -->
+  <nav class="toc-strip" aria-label="Page sections">
+    <a href="#install"><span class="toc-num">01</span>Install</a>
+    <a href="#first-run"><span class="toc-num">02</span>First Run</a>
+    <a href="#features"><span class="toc-num">03</span>All Features</a>
+    <a href="#outputs"><span class="toc-num">04</span>Output Files</a>
+    <a href="#python-api"><span class="toc-num">05</span>Python API</a>
+    <a href="#summary"><span class="toc-num">06</span>Auto-Pipeline</a>
+  </nav>
 
-<!-- 01 Install -->
-<section class="section" id="install">
-  <div class="section-label">01 — Setup</div>
-  <h2>Installation</h2>
-  <p>CleanR installs as a regular Python package. Once installed, the <code>cleanr</code> command is available everywhere on your system — no virtual environment needed.</p>
-  <div class="steps">
-    <div class="step"><div class="step-n">01</div><div class="step-content"><h4>Confirm Python 3.9 or newer</h4><p>Run <code>python3 --version</code> in your terminal. Any version from 3.9 onward works.</p></div></div>
-    <div class="step"><div class="step-n">02</div><div class="step-content"><h4>Add ~/.local/bin to your PATH (one time only)</h4><p>This makes pip-installed commands like <code>cleanr</code> available in every terminal session.</p></div></div>
-    <div class="step"><div class="step-n">03</div><div class="step-content"><h4>Navigate into the Cleanr_v3 folder and install</h4><p>The folder contains <code>pyproject.toml</code> and the <code>cleanr/</code> package directory.</p></div></div>
-    <div class="step"><div class="step-n">04</div><div class="step-content"><h4>Verify it works</h4><p>Run <code>cleanr --help</code> from any directory. You should see the full flag reference.</p></div></div>
-  </div>
-  <div class="terminal">
-    <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Terminal</span></div>
-    <div class="t-body">
+  <!-- ── 01 Install ── -->
+  <section class="section" id="install">
+    <div class="section-label">01 — Setup</div>
+    <h2>Installation</h2>
+    <p>CleanR installs as a regular Python package. Once installed, the <code>cleanr</code> command is available everywhere on your system — no virtual environment needed.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div class="step-content">
+          <h4>Confirm Python 3.9 or newer</h4>
+          <p>Run <code>python3 --version</code> in your terminal. Any version from 3.9 onward works.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div class="step-content">
+          <h4>Add ~/.local/bin to your PATH (one time only)</h4>
+          <p>This makes pip-installed commands like <code>cleanr</code> available in every terminal session.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div class="step-content">
+          <h4>Clone the repo and install</h4>
+          <p>The folder contains <code>pyproject.toml</code> and the <code>cleanr/</code> package directory.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <div class="step-content">
+          <h4>Verify it works</h4>
+          <p>Run <code>cleanr --help</code> from any directory. You should see the full flag reference.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="terminal">
+      <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Terminal</span></div>
+      <div class="t-body">
 <pre><span class="tco"># Step 2 — Add ~/.local/bin to PATH (run once, then restart your terminal)</span>
 <span class="tc">echo</span> <span class="ta">'export PATH="$HOME/.local/bin:$PATH"'</span> >> ~/.bashrc
-<span class="tc">source</span> <span class="ta">~/.bashrc</span>
+<span class="tc">source</span> ~/.bashrc
 
 <span class="tco"># Step 3 — Clone the repo and install</span>
 <span class="tc">git clone</span> <span class="ta">https://github.com/Omensah-15/CleanR-v3.git</span>
-<span class="tc">cd</span> <span class="ta">CleanR-v3</span>
-<span class="tc">pip install</span> <span class="tf">-e</span> <span class="ta">.</span> <span class="tf">--break-system-packages</span>
+<span class="tc">cd</span> CleanR-v3
+<span class="tc">pip install</span> <span class="tf">-e</span> . <span class="tf">--break-system-packages</span>
 
 <span class="tco"># Step 4 — Verify (works from any directory)</span>
 <span class="tc">cleanr</span> <span class="tf">--help</span></pre>
+      </div>
+      <button class="copy-btn" data-copy="echo 'export PATH=&quot;$HOME/.local/bin:$PATH&quot;' >> ~/.bashrc
+source ~/.bashrc
+git clone https://github.com/Omensah-15/CleanR-v3.git
+cd CleanR-v3
+pip install -e . --break-system-packages
+cleanr --help">Copy</button>
     </div>
-    <button class="copy-btn" data-copy="echo 'export PATH=&quot;$HOME/.local/bin:$PATH&quot;' >> ~/.bashrc&#10;source ~/.bashrc&#10;cd path/to/Cleanr_v3&#10;pip install -e . --break-system-packages&#10;cleanr --help">Copy</button>
-  </div>
-  <h3>Optional: Parquet file support</h3>
-  <div class="terminal">
-    <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-    <div class="t-body">
-<pre><span class="tc">pip install</span> <span class="ta">pyarrow</span> <span class="tf">--break-system-packages</span>   <span class="tco"># adds .parquet input/output support</span></pre>
-    </div>
-  </div>
-  <div class="callout"><strong>After install</strong>, you can run <code>cleanr</code> from any directory in any terminal — no activation or setup needed.</div>
-</section>
 
-<!-- 02 First Run -->
-<section class="section" id="first-run">
-  <div class="section-label">02 — Getting Started</div>
-  <h2>Your first run</h2>
-  <p>Point CleanR at any data file. It detects the format and encoding automatically, runs the full pipeline, and saves the result.</p>
-  <div class="terminal">
-    <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Minimal usage</span></div>
-    <div class="t-body"><pre><span class="tc">cleanr</span> <span class="ta">data.csv</span></pre></div>
-    <button class="copy-btn" data-copy="cleanr data.csv">Copy</button>
-  </div>
-  <p>This saves <code>data_clean.csv</code> alongside your input, plus a quality report and audit log. Here is what the output looks like:</p>
-  <div class="terminal">
-    <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Example terminal output</span></div>
-    <div class="t-body">
+    <h3>Optional: Parquet file support</h3>
+    <div class="terminal">
+      <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+      <div class="t-body">
+<pre><span class="tc">pip install</span> pyarrow <span class="tf">--break-system-packages</span>   <span class="tco"># adds .parquet input/output support</span></pre>
+      </div>
+    </div>
+
+    <div class="callout"><strong>After install</strong>, you can run <code>cleanr</code> from any directory in any terminal — no activation or setup needed.</div>
+  </section>
+
+  <!-- ── 02 First Run ── -->
+  <section class="section" id="first-run">
+    <div class="section-label">02 — Getting Started</div>
+    <h2>Your first run</h2>
+    <p>Point CleanR at any data file. It detects the format and encoding automatically, runs the full pipeline, and saves the result.</p>
+
+    <div class="terminal">
+      <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Minimal usage</span></div>
+      <div class="t-body"><pre><span class="tc">cleanr</span> data.csv</pre></div>
+      <button class="copy-btn" data-copy="cleanr data.csv">Copy</button>
+    </div>
+
+    <p>This saves <code>data_clean.csv</code> alongside your input, plus a quality report and audit log. Here is what the output looks like:</p>
+
+    <div class="terminal">
+      <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Example terminal output</span></div>
+      <div class="t-body">
 <pre>  <span class="th">CleanR v3.0.0</span>
   <span class="ti">Format: CSV  Encoding: utf-8  Delimiter: ','</span>
-  <span class="ti">Loaded: 5,200 rows x 14 cols  (0.03s)</span>
+  <span class="ti">Loaded: 5,200 rows × 14 cols  (0.03s)</span>
   <span class="ti">Profile: quality Fair 68/100</span>
 
   <span class="ti">Pipeline:</span>
     <span class="tok">+ [normalize_columns]  Normalized 11/14 column names to snake_case</span>
     <span class="tok">+ [trim_whitespace]    Trimmed and normalised whitespace in 5 string columns</span>
-    <span class="tok">+ [remove_duplicates]  Removed 47 duplicate rows (5,200 -> 5,153)</span>
+    <span class="tok">+ [remove_duplicates]  Removed 47 duplicate rows (5,200 → 5,153)</span>
     <span class="tok">+ [handle_missing]     Imputed 312 nulls in 'age' via knn_k5</span>
     <span class="tok">+ [handle_missing]     Imputed 28 nulls in 'salary' via median (fill=62450.0)</span>
-    <span class="tok">+ [type_coercion]      Coerced 'join_date' -> datetime64[ns]</span>
-    <span class="tok">+ [type_coercion]      Coerced 'country' -> category</span>
+    <span class="tok">+ [type_coercion]      Coerced 'join_date' → datetime64[ns]</span>
+    <span class="tok">+ [type_coercion]      Coerced 'country' → category</span>
     <span class="tok">+ [format_validator]   Flagged 23 (0.4%) invalid email values in 'email'</span>
-    <span class="tok">+ [memory_optimize]    Memory: 0.44 MB -> 0.29 MB (saved 0.15 MB, 34%)</span>
+    <span class="tok">+ [memory_optimize]    Memory: 0.44 MB → 0.29 MB (saved 0.15 MB, 34%)</span>
 
   <span class="th">Post-clean: quality Excellent 96/100  (0.31s)</span>
 
-  <span class="tok">Done: 0.41s  |  5,153 rows x 15 cols  |  Quality: Excellent (96/100)</span>
+  <span class="tok">Done: 0.41s  |  5,153 rows × 15 cols  |  Quality: Excellent (96/100)</span>
   <span class="ti">Report: data_clean.report.json</span>
   <span class="ti">Audit:  data_clean.audit.json</span></pre>
-    </div>
-  </div>
-  <p>You can also name your output file explicitly:</p>
-  <div class="terminal">
-    <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-    <div class="t-body"><pre><span class="tc">cleanr</span> <span class="ta">messy_data.xlsx</span> <span class="ta">tidy_output.csv</span></pre></div>
-    <button class="copy-btn" data-copy="cleanr messy_data.xlsx tidy_output.csv">Copy</button>
-  </div>
-</section>
-
-<!-- 03 All Features -->
-<section class="section" id="features">
-  <div class="section-label">03 — Reference</div>
-  <h2>All features with examples</h2>
-  <div class="tabs">
-    <div class="tab-nav">
-      <button class="tab-btn active" data-tab="missing">Missing Data</button>
-      <button class="tab-btn" data-tab="outliers">Outlier Detection</button>
-      <button class="tab-btn" data-tab="columns">Column Ops</button>
-      <button class="tab-btn" data-tab="formats">File Formats</button>
-      <button class="tab-btn" data-tab="validate">Validation Rules</button>
-      <button class="tab-btn" data-tab="large">Large Files</button>
-      <button class="tab-btn" data-tab="control">Pipeline Control</button>
+      </div>
     </div>
 
-    <div id="tab-missing" class="tab-panel active">
-      <h3>KNN imputation (default for 5-40% missing)</h3>
-      <p>By default, CleanR uses KNN imputation automatically when a column is 5-40% missing. No flag needed — it happens on every run.</p>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tco"># Auto strategy: KNN for mid-missing numerics, mode for categoricals, ffill for dates</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span>
+    <p>You can also name your output file explicitly:</p>
+    <div class="terminal">
+      <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+      <div class="t-body"><pre><span class="tc">cleanr</span> messy_data.xlsx tidy_output.csv</pre></div>
+      <button class="copy-btn" data-copy="cleanr messy_data.xlsx tidy_output.csv">Copy</button>
+    </div>
+  </section>
+
+  <!-- ── 03 Features ── -->
+  <section class="section" id="features">
+    <div class="section-label">03 — Reference</div>
+    <h2>All features with examples</h2>
+
+    <div class="tabs">
+      <!-- Tab nav wrapped for horizontal scroll on mobile -->
+      <div class="tab-nav-wrap">
+        <div class="tab-nav" role="tablist">
+          <button class="tab-btn active" data-tab="missing"  role="tab" aria-selected="true"  aria-controls="tab-missing">Missing Data</button>
+          <button class="tab-btn"        data-tab="outliers" role="tab" aria-selected="false" aria-controls="tab-outliers">Outliers</button>
+          <button class="tab-btn"        data-tab="columns"  role="tab" aria-selected="false" aria-controls="tab-columns">Column Ops</button>
+          <button class="tab-btn"        data-tab="formats"  role="tab" aria-selected="false" aria-controls="tab-formats">File Formats</button>
+          <button class="tab-btn"        data-tab="validate" role="tab" aria-selected="false" aria-controls="tab-validate">Validation</button>
+          <button class="tab-btn"        data-tab="large"    role="tab" aria-selected="false" aria-controls="tab-large">Large Files</button>
+          <button class="tab-btn"        data-tab="control"  role="tab" aria-selected="false" aria-controls="tab-control">Pipeline Control</button>
+        </div>
+      </div>
+
+      <!-- Missing Data -->
+      <div id="tab-missing" class="tab-panel active" role="tabpanel">
+        <h3>KNN imputation (default for 5–40% missing)</h3>
+        <p>By default, CleanR uses KNN imputation automatically when a column is 5–40% missing. No flag needed — it happens on every run.</p>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tco"># Auto strategy: KNN for mid-missing numerics, mode for categoricals, ffill for dates</span>
+<span class="tc">cleanr</span> data.csv
 
 <span class="tco"># Force KNN for everything</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--impute-strategy</span> <span class="ta">knn</span>
+<span class="tc">cleanr</span> data.csv <span class="tf">--impute-strategy</span> knn
 
 <span class="tco"># Use median/mode only (faster, no ML)</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--impute-strategy</span> <span class="ta">median</span>
+<span class="tc">cleanr</span> data.csv <span class="tf">--impute-strategy</span> median
 
 <span class="tco"># Fill everything with a constant</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--impute-strategy</span> <span class="ta">constant</span> <span class="tf">--fill</span> <span class="ta">"N/A"</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --impute-strategy knn">Copy</button></div>
-      <h3>Drop rows with any missing value</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--drop-na</span>
-<span class="tco"># Removes every row that contains at least one empty cell — overrides imputation</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --drop-na">Copy</button></div>
-      <h3>Drop columns that are mostly empty</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--drop-col-threshold</span> <span class="ta">0.8</span>
-<span class="tco"># Drops any column that is 80% or more empty</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --drop-col-threshold 0.8">Copy</button></div>
-    </div>
+<span class="tc">cleanr</span> data.csv <span class="tf">--impute-strategy</span> constant <span class="tf">--fill</span> <span class="ta">"N/A"</span></pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv --impute-strategy knn">Copy</button>
+        </div>
 
-    <div id="tab-outliers" class="tab-panel">
-      <p>Outlier detection uses <strong>Isolation Forest + IQR consensus</strong> — a row must be flagged by both methods before it is acted on. This minimises false positives.</p>
-      <h3>Flag outlier rows (default)</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--detect-outliers</span>
-<span class="tco"># Adds a '_is_outlier' boolean column — you decide what to do with flagged rows</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --detect-outliers">Copy</button></div>
-      <h3>Remove outlier rows automatically</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--detect-outliers</span> <span class="tf">--outlier-method</span> <span class="ta">remove</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --detect-outliers --outlier-method remove">Copy</button></div>
-      <h3>Adjust sensitivity</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tco"># contamination = expected fraction of outliers (default: 0.02 = 2%)</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--detect-outliers</span> <span class="tf">--outlier-contamination</span> <span class="ta">0.05</span>
-<span class="tco"># Use 0.05 for dirtier data, 0.01 for cleaner data</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --detect-outliers --outlier-contamination 0.05">Copy</button></div>
-    </div>
+        <h3>Drop rows with any missing value</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tc">cleanr</span> data.csv <span class="tf">--drop-na</span>
+<span class="tco"># Removes every row that contains at least one empty cell — overrides imputation</span></pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv --drop-na">Copy</button>
+        </div>
 
-    <div id="tab-columns" class="tab-panel">
-      <h3>Keep only the columns you need</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--keep</span> <span class="ta">id,name,email,signup_date,country</span>
-<span class="tco"># All other columns are discarded</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --keep id,name,email,signup_date,country">Copy</button></div>
-      <h3>Drop specific columns</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--drop</span> <span class="ta">internal_notes,debug_flag,temp_col</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --drop internal_notes,debug_flag,temp_col">Copy</button></div>
-      <h3>Rename columns</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--rename</span> <span class="ta">fname=first_name lname=last_name cust_id=id</span>
-<span class="tco"># Format: OLD=NEW — space-separated pairs</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --rename fname=first_name lname=last_name cust_id=id">Copy</button></div>
-      <h3>Split one column into multiple</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tco"># "John Smith"  ->  first_name="John", last_name="Smith"</span>
-<span class="tc">cleanr</span> <span class="ta">contacts.csv</span> <span class="tf">--split</span> <span class="ta">full_name "first_name,last_name" " "</span>
-
-<span class="tco"># "Austin,TX,78701"  ->  city, state, zip</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--split</span> <span class="ta">address "city,state,zip" ","</span></pre></div>
-      <button class="copy-btn" data-copy='cleanr contacts.csv --split full_name "first_name,last_name" " "'>Copy</button></div>
-      <h3>Add a copy of a column</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--add</span> <span class="ta">email_backup=email original_id=id</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --add email_backup=email original_id=id">Copy</button></div>
-    </div>
-
-    <div id="tab-formats" class="tab-panel">
-      <h3>Supported input formats</h3>
-      <div class="tags">
-        <span class="tag g">CSV</span><span class="tag g">TSV</span><span class="tag g">TXT</span>
-        <span class="tag b">JSON</span><span class="tag b">JSONL</span>
-        <span class="tag a">XLSX</span><span class="tag a">XLS</span>
-        <span class="tag r">Parquet*</span>
-        <span class="tag g">GZ / BZ2 / XZ compressed</span>
+        <h3>Drop columns that are mostly empty</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tc">cleanr</span> data.csv <span class="tf">--drop-col-threshold</span> <span class="ta">0.8</span>
+<span class="tco"># Drops any column that is 80% or more empty</span></pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv --drop-col-threshold 0.8">Copy</button>
+        </div>
       </div>
-      <p style="font-size:.85rem;color:#666;margin-top:0">*Parquet requires <code>pip install pyarrow --break-system-packages</code></p>
-      <h3>Output to a different format</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tco"># CSV input -> Excel output</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="ta">output.xlsx</span> <span class="tf">--output-format</span> <span class="ta">xlsx</span>
 
-<span class="tco"># Excel input -> JSON output</span>
-<span class="tc">cleanr</span> <span class="ta">report.xlsx</span> <span class="ta">report.json</span> <span class="tf">--output-format</span> <span class="ta">json</span>
+      <!-- Outliers -->
+      <div id="tab-outliers" class="tab-panel" role="tabpanel">
+        <p>Outlier detection uses <strong>Isolation Forest + IQR consensus</strong> — a row must be flagged by both methods before it is acted on. This minimises false positives.</p>
 
-<span class="tco"># CSV -> TSV (tab-separated)</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="ta">data.tsv</span> <span class="tf">--output-format</span> <span class="ta">tsv</span>
+        <h3>Flag outlier rows (default)</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tc">cleanr</span> data.csv <span class="tf">--detect-outliers</span>
+<span class="tco"># Adds a '_is_outlier' boolean column — you decide what to do with flagged rows</span></pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv --detect-outliers">Copy</button>
+        </div>
 
-<span class="tco"># CSV -> JSONL (one object per line)</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="ta">data.jsonl</span> <span class="tf">--output-format</span> <span class="ta">jsonl</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv output.xlsx --output-format xlsx">Copy</button></div>
-      <h3>Force a specific encoding</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tc">cleanr</span> <span class="ta">old_export.csv</span> <span class="tf">--encoding</span> <span class="ta">latin1</span>
-<span class="tco"># Options: utf-8, utf-16, latin1, cp1252, iso-8859-1</span>
-<span class="tco"># Usually not needed — CleanR auto-detects encoding</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr old_export.csv --encoding latin1">Copy</button></div>
-    </div>
+        <h3>Remove outlier rows automatically</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tc">cleanr</span> data.csv <span class="tf">--detect-outliers</span> <span class="tf">--outlier-method</span> remove</pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv --detect-outliers --outlier-method remove">Copy</button>
+        </div>
 
-    <div id="tab-validate" class="tab-panel">
-      <p>Write a JSON rules file, pass it with <code>--rules</code>. Each rule targets a column and checks a condition. Violations are flagged or removed.</p>
-      <h3>Create a rules file</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">rules.json</span></div>
-      <div class="t-body"><pre><span class="ti">[</span>
-  <span class="ti">{ "column": "age",     "type": "min",   "value": 0   },</span>
-  <span class="ti">{ "column": "age",     "type": "max",   "value": 120 },</span>
-  <span class="ti">{ "column": "email",   "type": "not_null" },</span>
-  <span class="ti">{ "column": "status",  "type": "allowed_values",</span>
-    <span class="ti">"values": ["active", "inactive", "pending"] },</span>
-  <span class="ti">{ "column": "phone",   "type": "regex",</span>
-    <span class="ti">"pattern": "^\\+?[\\d\\s\\-().]{7,20}$" }</span>
-<span class="ti">]</span></pre></div></div>
-      <h3>Apply the rules</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tco"># Flag violating rows (adds '_rule_violation' column)</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--rules</span> <span class="ta">rules.json</span>
+        <h3>Adjust sensitivity</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tco"># contamination = expected fraction of outliers (default: 0.02 = 2%)</span>
+<span class="tc">cleanr</span> data.csv <span class="tf">--detect-outliers</span> <span class="tf">--outlier-contamination</span> <span class="ta">0.05</span>
+<span class="tco"># Use 0.05 for dirtier data, 0.01 for cleaner data</span></pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv --detect-outliers --outlier-contamination 0.05">Copy</button>
+        </div>
+      </div>
+
+      <!-- Column Ops -->
+      <div id="tab-columns" class="tab-panel" role="tabpanel">
+        <h3>Keep only the columns you need</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tc">cleanr</span> data.csv <span class="tf">--keep</span> <span class="ta">id,name,email,signup_date,country</span>
+<span class="tco"># All other columns are discarded</span></pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv --keep id,name,email,signup_date,country">Copy</button>
+        </div>
+
+        <h3>Drop specific columns</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tc">cleanr</span> data.csv <span class="tf">--drop</span> <span class="ta">internal_notes,debug_flag,temp_col</span></pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv --drop internal_notes,debug_flag,temp_col">Copy</button>
+        </div>
+
+        <h3>Rename columns</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tc">cleanr</span> data.csv <span class="tf">--rename</span> <span class="ta">fname=first_name lname=last_name cust_id=id</span>
+<span class="tco"># Format: OLD=NEW — space-separated pairs</span></pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv --rename fname=first_name lname=last_name cust_id=id">Copy</button>
+        </div>
+
+        <h3>Split one column into multiple</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tco"># "John Smith"  →  first_name="John", last_name="Smith"</span>
+<span class="tc">cleanr</span> contacts.csv <span class="tf">--split</span> <span class="ta">full_name "first_name,last_name" " "</span>
+
+<span class="tco"># "Austin,TX,78701"  →  city, state, zip</span>
+<span class="tc">cleanr</span> data.csv <span class="tf">--split</span> <span class="ta">address "city,state,zip" ","</span></pre>
+          </div>
+          <button class="copy-btn" data-copy='cleanr contacts.csv --split full_name "first_name,last_name" " "'>Copy</button>
+        </div>
+
+        <h3>Add a copy of a column</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tc">cleanr</span> data.csv <span class="tf">--add</span> <span class="ta">email_backup=email original_id=id</span></pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv --add email_backup=email original_id=id">Copy</button>
+        </div>
+      </div>
+
+      <!-- File Formats -->
+      <div id="tab-formats" class="tab-panel" role="tabpanel">
+        <h3>Supported input formats</h3>
+        <div class="tags">
+          <span class="tag g">CSV</span>
+          <span class="tag g">TSV</span>
+          <span class="tag g">TXT</span>
+          <span class="tag b">JSON</span>
+          <span class="tag b">JSONL</span>
+          <span class="tag a">XLSX</span>
+          <span class="tag a">XLS</span>
+          <span class="tag r">Parquet*</span>
+          <span class="tag g">GZ / BZ2 / XZ compressed</span>
+        </div>
+        <p style="font-size:.83rem;color:#666;margin-top:-4px;">*Parquet requires <code>pip install pyarrow --break-system-packages</code></p>
+
+        <h3>Output to a different format</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tco"># CSV input → Excel output</span>
+<span class="tc">cleanr</span> data.csv output.xlsx <span class="tf">--output-format</span> xlsx
+
+<span class="tco"># Excel input → JSON output</span>
+<span class="tc">cleanr</span> report.xlsx report.json <span class="tf">--output-format</span> json
+
+<span class="tco"># CSV → TSV (tab-separated)</span>
+<span class="tc">cleanr</span> data.csv data.tsv <span class="tf">--output-format</span> tsv
+
+<span class="tco"># CSV → JSONL (one object per line)</span>
+<span class="tc">cleanr</span> data.csv data.jsonl <span class="tf">--output-format</span> jsonl</pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv output.xlsx --output-format xlsx">Copy</button>
+        </div>
+
+        <h3>Force a specific encoding</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tc">cleanr</span> old_export.csv <span class="tf">--encoding</span> latin1
+<span class="tco"># Options: utf-8, utf-16, latin1, cp1252, iso-8859-1
+# Usually not needed — CleanR auto-detects encoding</span></pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr old_export.csv --encoding latin1">Copy</button>
+        </div>
+      </div>
+
+      <!-- Validation -->
+      <div id="tab-validate" class="tab-panel" role="tabpanel">
+        <p>Write a JSON rules file, pass it with <code>--rules</code>. Each rule targets a column and checks a condition. Violations are flagged or removed.</p>
+
+        <h3>Create a rules file</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">rules.json</span></div>
+          <div class="t-body">
+<pre><span class="ti">[</span>
+  <span class="ti">{ "column": "age",    "type": "min",   "value": 0   },</span>
+  <span class="ti">{ "column": "age",    "type": "max",   "value": 120 },</span>
+  <span class="ti">{ "column": "email",  "type": "not_null" },</span>
+  <span class="ti">{ "column": "status", "type": "allowed_values",</span>
+    <span class="ti">  "values": ["active", "inactive", "pending"] },</span>
+  <span class="ti">{ "column": "phone",  "type": "regex",</span>
+    <span class="ti">  "pattern": "^\\+?[\\d\\s\\-().]{7,20}$" }</span>
+<span class="ti">]</span></pre>
+          </div>
+        </div>
+
+        <h3>Apply the rules</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tco"># Flag violating rows (adds '_rule_violation' column)</span>
+<span class="tc">cleanr</span> data.csv <span class="tf">--rules</span> rules.json
 
 <span class="tco"># Remove violating rows</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--rules</span> <span class="ta">rules.json</span> <span class="tf">--rule-action</span> <span class="ta">remove</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --rules rules.json">Copy</button></div>
-    </div>
-
-    <div id="tab-large" class="tab-panel">
-      <h3>Files too large to fit in RAM</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tco"># Read and process 50,000 rows at a time</span>
-<span class="tc">cleanr</span> <span class="ta">huge_file.csv</span> <span class="tf">--chunk</span> <span class="ta">50000</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr huge_file.csv --chunk 50000">Copy</button></div>
-      <h3>Maximum throughput mode</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tco"># --quick skips schema inference, KNN imputation, and memory optimisation</span>
-<span class="tc">cleanr</span> <span class="ta">10gb_log.csv</span> <span class="ta">clean.csv</span> <span class="tf">--chunk</span> <span class="ta">100000</span> <span class="tf">--quick</span> <span class="tf">--no-fingerprint</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr 10gb_log.csv clean.csv --chunk 100000 --quick --no-fingerprint">Copy</button></div>
-      <h3>Compressed input files</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tco"># .gz, .bz2, .xz, and .zip are detected automatically</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv.gz</span> <span class="ta">data_clean.csv</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv.gz data_clean.csv">Copy</button></div>
-    </div>
-
-    <div id="tab-control" class="tab-panel">
-      <h3>Turn off specific pipeline steps</h3>
-      <p>All steps are on by default. Use <code>--no-*</code> flags to disable individual ones while keeping everything else running.</p>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--no-normalize</span>         <span class="tco"># keep original column names</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--no-dedup</span>              <span class="tco"># keep duplicate rows</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--no-trim</span>               <span class="tco"># do not strip whitespace</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--no-auto-types</span>         <span class="tco"># do not change column types</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--no-validate-formats</span>   <span class="tco"># skip email/phone/URL checks</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--no-drop-constant</span>      <span class="tco"># keep constant columns</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --no-normalize">Copy</button></div>
-
-      <h3>Bare mode — run only what you specify</h3>
-      <p>With <code>--bare</code>, every default pipeline step is disabled. Only the flags you explicitly pass will run. Use this when you want a minimal, exact pipeline with no automatic side effects.</p>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tco"># Only fill missing values — nothing else touches the data</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--bare</span> <span class="tf">--fill</span> <span class="ta">"nan"</span>
-
-<span class="tco"># Only remove duplicates and fill missing values</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--bare</span> <span class="tf">--dedup</span> <span class="tf">--fill</span> <span class="ta">"nan"</span>
-
-<span class="tco"># Only normalize column names and strip whitespace</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--bare</span> <span class="tf">--normalize</span> <span class="tf">--trim</span>
-
-<span class="tco"># Only KNN imputation and outlier flagging</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--bare</span> <span class="tf">--impute-strategy</span> <span class="ta">knn</span> <span class="tf">--detect-outliers</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --bare --fill &quot;nan&quot;">Copy</button></div>
-      <div class="callout"><strong>--bare vs --no-*</strong> — Use <code>--no-normalize</code>, <code>--no-dedup</code> etc. to turn off individual steps while keeping everything else. Use <code>--bare</code> when you want to start from nothing and opt in to only what you need.</div>
-
-      <h3>Bare mode — run only what you specify</h3>
-      <p>With <code>--bare</code>, every default pipeline step is disabled. Only the flags you explicitly pass will run. Use this when you want a minimal, exact pipeline with no automatic side effects.</p>
-      <div class="terminal">
-        <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-        <div class="t-body">
-<pre><span class="tco"># Only fill missing values — nothing else touches the data</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--bare</span> <span class="tf">--fill</span> <span class="ta">"nan"</span>
-
-<span class="tco"># Only remove duplicates and fill missing values</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--bare</span> <span class="tf">--dedup</span> <span class="tf">--fill</span> <span class="ta">"nan"</span>
-
-<span class="tco"># Only normalize column names and strip whitespace</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--bare</span> <span class="tf">--normalize</span> <span class="tf">--trim</span>
-
-<span class="tco"># Only KNN imputation and outlier flagging</span>
-<span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--bare</span> <span class="tf">--impute-strategy</span> <span class="ta">knn</span> <span class="tf">--detect-outliers</span></pre>
+<span class="tc">cleanr</span> data.csv <span class="tf">--rules</span> rules.json <span class="tf">--rule-action</span> remove</pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv --rules rules.json">Copy</button>
         </div>
-        <button class="copy-btn" data-copy="cleanr data.csv --bare --fill &quot;nan&quot;">Copy</button>
       </div>
-      <div class="callout"><strong>--bare vs --no-*</strong> — Use <code>--no-normalize</code>, <code>--no-dedup</code> etc. to turn off individual steps while keeping everything else. Use <code>--bare</code> when you want to start from nothing and opt in to only what you need.</div>
 
-      <h3>Suppress terminal output</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--quiet</span>
+      <!-- Large Files -->
+      <div id="tab-large" class="tab-panel" role="tabpanel">
+        <h3>Files too large to fit in RAM</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tco"># Read and process 50,000 rows at a time</span>
+<span class="tc">cleanr</span> huge_file.csv <span class="tf">--chunk</span> <span class="ta">50000</span></pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr huge_file.csv --chunk 50000">Copy</button>
+        </div>
+
+        <h3>Maximum throughput mode</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tco"># --quick skips schema inference, KNN imputation, and memory optimisation</span>
+<span class="tc">cleanr</span> 10gb_log.csv clean.csv <span class="tf">--chunk</span> <span class="ta">100000</span> <span class="tf">--quick</span> <span class="tf">--no-fingerprint</span></pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr 10gb_log.csv clean.csv --chunk 100000 --quick --no-fingerprint">Copy</button>
+        </div>
+
+        <h3>Compressed input files</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tco"># .gz, .bz2, .xz, and .zip are detected automatically</span>
+<span class="tc">cleanr</span> data.csv.gz data_clean.csv</pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv.gz data_clean.csv">Copy</button>
+        </div>
+      </div>
+
+      <!-- Pipeline Control -->
+      <div id="tab-control" class="tab-panel" role="tabpanel">
+        <h3>Turn off specific pipeline steps</h3>
+        <p>All steps are on by default. Use <code>--no-*</code> flags to disable individual ones while keeping everything else running.</p>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tc">cleanr</span> data.csv <span class="tf">--no-normalize</span>         <span class="tco"># keep original column names</span>
+<span class="tc">cleanr</span> data.csv <span class="tf">--no-dedup</span>              <span class="tco"># keep duplicate rows</span>
+<span class="tc">cleanr</span> data.csv <span class="tf">--no-trim</span>               <span class="tco"># do not strip whitespace</span>
+<span class="tc">cleanr</span> data.csv <span class="tf">--no-auto-types</span>         <span class="tco"># do not change column types</span>
+<span class="tc">cleanr</span> data.csv <span class="tf">--no-validate-formats</span>   <span class="tco"># skip email/phone/URL checks</span>
+<span class="tc">cleanr</span> data.csv <span class="tf">--no-drop-constant</span>      <span class="tco"># keep constant columns</span></pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv --no-normalize">Copy</button>
+        </div>
+
+        <h3>Bare mode — run only what you specify</h3>
+        <p>With <code>--bare</code>, every default pipeline step is disabled. Only the flags you explicitly pass will run. Use this when you want a minimal, exact pipeline with no automatic side effects.</p>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tco"># Only fill missing values — nothing else touches the data</span>
+<span class="tc">cleanr</span> data.csv <span class="tf">--bare</span> <span class="tf">--fill</span> <span class="ta">"nan"</span>
+
+<span class="tco"># Only remove duplicates and fill missing values</span>
+<span class="tc">cleanr</span> data.csv <span class="tf">--bare</span> <span class="tf">--dedup</span> <span class="tf">--fill</span> <span class="ta">"nan"</span>
+
+<span class="tco"># Only normalize column names and strip whitespace</span>
+<span class="tc">cleanr</span> data.csv <span class="tf">--bare</span> <span class="tf">--normalize</span> <span class="tf">--trim</span>
+
+<span class="tco"># Only KNN imputation and outlier flagging</span>
+<span class="tc">cleanr</span> data.csv <span class="tf">--bare</span> <span class="tf">--impute-strategy</span> knn <span class="tf">--detect-outliers</span></pre>
+          </div>
+          <button class="copy-btn" data-copy='cleanr data.csv --bare --fill "nan"'>Copy</button>
+        </div>
+
+        <div class="callout"><strong>--bare vs --no-*</strong> — Use <code>--no-normalize</code>, <code>--no-dedup</code>, etc. to turn off individual steps while keeping everything else. Use <code>--bare</code> when you want to start from nothing and opt in to only what you need.</div>
+
+        <h3>Suppress terminal output</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tc">cleanr</span> data.csv <span class="tf">--quiet</span>
 <span class="tco"># Prints nothing. Exit code 0 = success, 1 = error.
-# Safe to use in scripts and automated pipelines.</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --quiet">Copy</button></div>
+# Safe to use in scripts and automated pipelines.</span></pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv --quiet">Copy</button>
+        </div>
 
-      <h3>Custom report and audit output paths</h3>
-      <div class="terminal"><div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-      <div class="t-body"><pre><span class="tc">cleanr</span> <span class="ta">data.csv</span> <span class="tf">--report</span> <span class="ta">reports/quality.json</span> <span class="tf">--audit</span> <span class="ta">logs/audit.json</span></pre></div>
-      <button class="copy-btn" data-copy="cleanr data.csv --report reports/quality.json --audit logs/audit.json">Copy</button></div>
+        <h3>Custom report and audit output paths</h3>
+        <div class="terminal">
+          <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+          <div class="t-body">
+<pre><span class="tc">cleanr</span> data.csv <span class="tf">--report</span> reports/quality.json <span class="tf">--audit</span> logs/audit.json</pre>
+          </div>
+          <button class="copy-btn" data-copy="cleanr data.csv --report reports/quality.json --audit logs/audit.json">Copy</button>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- 04 Output Files -->
-<section class="section" id="outputs">
-  <div class="section-label">04 — Output</div>
-  <h2>What CleanR produces</h2>
-  <p>Every run automatically creates three files.</p>
-  <div class="output-list">
-    <div class="output-item"><div class="bar"></div><div class="output-body">
-      <div class="output-name">data_clean.csv</div>
-      <p class="output-desc">The cleaned dataset. Normalized column names, corrected data types, duplicates removed, whitespace stripped, missing values imputed. Ready for any analytics tool.</p>
-    </div></div>
-    <div class="output-item amber"><div class="bar"></div><div class="output-body">
-      <div class="output-name">data_clean.report.json</div>
-      <p class="output-desc">Full quality report: before/after row counts, a five-dimension quality score (Completeness, Uniqueness, Validity, Consistency, Accuracy), per-column statistics (mean, std, percentiles, skewness, kurtosis, normality p-value), detected anomalies catalogued as Critical/Warning/Info, and SHA-256 integrity fingerprints for both input and output.</p>
-    </div></div>
-    <div class="output-item blue"><div class="bar"></div><div class="output-body">
-      <div class="output-name">data_clean.audit.json</div>
-      <p class="output-desc">Timestamped log of every action taken — which plugin ran, what it changed, elapsed time. Use this for compliance, debugging, or reproducing a cleaning run exactly.</p>
-    </div></div>
-  </div>
-  <h3>Quality score breakdown</h3>
-  <div class="terminal">
-    <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">report.json (excerpt)</span></div>
-    <div class="t-body"><pre><span class="ti">{</span>
+  <!-- ── 04 Outputs ── -->
+  <section class="section" id="outputs">
+    <div class="section-label">04 — Output</div>
+    <h2>What CleanR produces</h2>
+    <p>Every run automatically creates three files.</p>
+
+    <div class="output-list">
+      <div class="output-item">
+        <div class="bar"></div>
+        <div class="output-body">
+          <div class="output-name">data_clean.csv</div>
+          <p class="output-desc">The cleaned dataset. Normalized column names, corrected data types, duplicates removed, whitespace stripped, missing values imputed. Ready for any analytics tool.</p>
+        </div>
+      </div>
+      <div class="output-item amber">
+        <div class="bar"></div>
+        <div class="output-body">
+          <div class="output-name">data_clean.report.json</div>
+          <p class="output-desc">Full quality report: before/after row counts, a five-dimension quality score (Completeness, Uniqueness, Validity, Consistency, Accuracy), per-column statistics (mean, std, percentiles, skewness, kurtosis, normality p-value), detected anomalies catalogued as Critical/Warning/Info, and SHA-256 integrity fingerprints for both input and output.</p>
+        </div>
+      </div>
+      <div class="output-item blue">
+        <div class="bar"></div>
+        <div class="output-body">
+          <div class="output-name">data_clean.audit.json</div>
+          <p class="output-desc">Timestamped log of every action taken — which plugin ran, what it changed, elapsed time. Use this for compliance, debugging, or reproducing a cleaning run exactly.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Quality score breakdown</h3>
+    <div class="terminal">
+      <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">report.json (excerpt)</span></div>
+      <div class="t-body">
+<pre><span class="ti">{</span>
   <span class="tok">"quality_score"</span>: <span class="ta">96.0</span>,
   <span class="tok">"quality_label"</span>: <span class="ta">"Excellent"</span>,
   <span class="tok">"dimensions"</span>: [
@@ -448,19 +874,22 @@ code{font-family:var(--mono);font-size:.8rem;background:var(--cream);border:1px 
     <span class="ta">"input"</span>:  { <span class="tok">"data_hash"</span>: <span class="ta">"2fab17210014a8c7..."</span> },
     <span class="ta">"output"</span>: { <span class="tok">"data_hash"</span>: <span class="ta">"c035153d0c1de947..."</span> }
   }
-<span class="ti">}</span></pre></div>
-  </div>
-</section>
+<span class="ti">}</span></pre>
+      </div>
+    </div>
+  </section>
 
-<!-- 05 Python API -->
-<section class="section" id="python-api">
-  <div class="section-label">05 — Python API</div>
-  <h2>Using CleanR from Python</h2>
-  <p>Use CleanR inside your own scripts, notebooks, or data pipelines instead of the command line.</p>
-  <h3>Basic usage</h3>
-  <div class="terminal">
-    <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Python</span></div>
-    <div class="t-body"><pre><span class="tf">from</span> pathlib <span class="tf">import</span> Path
+  <!-- ── 05 Python API ── -->
+  <section class="section" id="python-api">
+    <div class="section-label">05 — Python API</div>
+    <h2>Using CleanR from Python</h2>
+    <p>Use CleanR inside your own scripts, notebooks, or data pipelines instead of the command line.</p>
+
+    <h3>Basic usage</h3>
+    <div class="terminal">
+      <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Python</span></div>
+      <div class="t-body">
+<pre><span class="tf">from</span> pathlib <span class="tf">import</span> Path
 <span class="tf">from</span> cleanr.engine <span class="tf">import</span> CleanREngine
 
 engine = CleanREngine()
@@ -481,13 +910,24 @@ age_profile = result[<span class="ta">"post_profile"</span>].columns[<span class
 age_schema = result[<span class="ta">"schema"</span>][<span class="ta">"age"</span>]
 <span class="tok">print</span>(age_schema.inferred_dtype)     <span class="tco"># "int64"</span>
 <span class="tok">print</span>(age_schema.distribution)      <span class="tco"># "normal" | "skewed" | ...</span>
-<span class="tok">print</span>(age_schema.confidence)        <span class="tco"># 0.97</span></pre></div>
-    <button class="copy-btn" data-copy="from pathlib import Path&#10;from cleanr.engine import CleanREngine&#10;&#10;engine = CleanREngine()&#10;result = engine.clean(&#10;    input_path=Path(&quot;data.csv&quot;),&#10;    output_path=Path(&quot;data_clean.csv&quot;),&#10;)&#10;print(result[&quot;post_profile&quot;].quality_score)">Copy</button>
-  </div>
-  <h3>All pipeline options via Python</h3>
-  <div class="terminal">
-    <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Python</span></div>
-    <div class="t-body"><pre>result = engine.clean(
+<span class="tok">print</span>(age_schema.confidence)        <span class="tco"># 0.97</span></pre>
+      </div>
+      <button class="copy-btn" data-copy="from pathlib import Path
+from cleanr.engine import CleanREngine
+
+engine = CleanREngine()
+result = engine.clean(
+    input_path=Path(&quot;data.csv&quot;),
+    output_path=Path(&quot;data_clean.csv&quot;),
+)
+print(result[&quot;post_profile&quot;].quality_score)">Copy</button>
+    </div>
+
+    <h3>All pipeline options via Python</h3>
+    <div class="terminal">
+      <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Python</span></div>
+      <div class="t-body">
+<pre>result = engine.clean(
     input_path=Path(<span class="ta">"data.csv"</span>),
     output_path=Path(<span class="ta">"clean.csv"</span>),
     impute_strategy=<span class="ta">"knn"</span>,
@@ -497,13 +937,22 @@ age_schema = result[<span class="ta">"schema"</span>][<span class="ta">"age"</sp
     keep=[<span class="ta">"id"</span>, <span class="ta">"name"</span>, <span class="ta">"email"</span>, <span class="ta">"age"</span>],
     rename={<span class="ta">"cust_id"</span>: <span class="ta">"id"</span>},
     output_format=<span class="ta">"xlsx"</span>,
-)</pre></div>
-    <button class="copy-btn" data-copy="result = engine.clean(&#10;    input_path=Path(&quot;data.csv&quot;),&#10;    output_path=Path(&quot;clean.csv&quot;),&#10;    impute_strategy=&quot;knn&quot;,&#10;    drop_col_threshold=0.8,&#10;    detect_outliers=True,&#10;)">Copy</button>
-  </div>
-  <h3>Writing a custom plugin</h3>
-  <div class="terminal">
-    <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Python</span></div>
-    <div class="t-body"><pre><span class="tf">from</span> cleanr.plugins <span class="tf">import</span> CleanrPlugin
+)</pre>
+      </div>
+      <button class="copy-btn" data-copy='result = engine.clean(
+    input_path=Path("data.csv"),
+    output_path=Path("clean.csv"),
+    impute_strategy="knn",
+    drop_col_threshold=0.8,
+    detect_outliers=True,
+)'>Copy</button>
+    </div>
+
+    <h3>Writing a custom plugin</h3>
+    <div class="terminal">
+      <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-label">Python</span></div>
+      <div class="t-body">
+<pre><span class="tf">from</span> cleanr.plugins <span class="tf">import</span> CleanrPlugin
 <span class="tf">from</span> cleanr.engine  <span class="tf">import</span> CleanREngine
 <span class="tf">import</span> pandas <span class="tf">as</span> pd
 
@@ -521,65 +970,169 @@ age_schema = result[<span class="ta">"schema"</span>][<span class="ta">"age"</sp
 
 engine = CleanREngine()
 engine.register_plugin(StandardiseCountry())
-engine.clean(Path(<span class="ta">"data.csv"</span>), Path(<span class="ta">"clean.csv"</span>))</pre></div>
-    <button class="copy-btn" data-copy="from cleanr.plugins import CleanrPlugin&#10;from cleanr.engine import CleanREngine&#10;import pandas as pd&#10;&#10;class StandardiseCountry(CleanrPlugin):&#10;    name = &quot;standardise_country&quot;&#10;&#10;    def run(self, df):&#10;        if &quot;country&quot; in df.columns:&#10;            df[&quot;country&quot;] = df[&quot;country&quot;].str.upper().str.strip()&#10;            self.log(&quot;Standardised country codes&quot;)&#10;        return df&#10;&#10;engine = CleanREngine()&#10;engine.register_plugin(StandardiseCountry())&#10;engine.clean(&quot;data.csv&quot;, &quot;clean.csv&quot;)">Copy</button>
-  </div>
-</section>
+engine.clean(Path(<span class="ta">"data.csv"</span>), Path(<span class="ta">"clean.csv"</span>))</pre>
+      </div>
+      <button class="copy-btn" data-copy='from cleanr.plugins import CleanrPlugin
+from cleanr.engine import CleanREngine
+import pandas as pd
 
-<!-- 06 Summary -->
-<section class="section" id="summary">
-  <div class="section-label">06 — Reference</div>
-  <h2>What runs on every <code>cleanr file.csv</code></h2>
-  <p>These all happen automatically — no flags required.</p>
-  <div class="feat-grid">
-    <div class="feat"><div class="feat-title">Format Detection</div><p class="feat-desc">Magic-byte inspection, extension hints, and CSV dialect sniffing identify the format and encoding automatically — including compressed files.</p></div>
-    <div class="feat"><div class="feat-title">Column Normalization</div><p class="feat-desc">"First Name" becomes <code>first_name</code>. All column names are lowercased, punctuation replaced with underscores, duplicates disambiguated.</p></div>
-    <div class="feat"><div class="feat-title">Whitespace Cleaning</div><p class="feat-desc">Strips leading/trailing whitespace, collapses double spaces, and replaces empty strings and common null placeholders (N/A, null, None, nan) with proper NaN.</p></div>
-    <div class="feat"><div class="feat-title">Duplicate Removal</div><p class="feat-desc">Finds and removes fully duplicate rows. Near-duplicate detection is tracked in the quality report.</p></div>
-    <div class="feat"><div class="feat-title">Constant Column Drop</div><p class="feat-desc">Columns that carry zero information (single unique value across all rows) are automatically removed.</p></div>
-    <div class="feat"><div class="feat-title">Schema Inference</div><p class="feat-desc">Six-pass analysis per column: bool, integer, float, datetime (18 formats), semantic type (15 patterns), cardinality. Each inference has a confidence score.</p></div>
-    <div class="feat"><div class="feat-title">Smart Imputation</div><p class="feat-desc">Under 5% missing: median/mode. 5-40% missing: KNN with distance weighting. Over 40%: median with a warning. Datetimes: forward-fill then backward-fill.</p></div>
-    <div class="feat"><div class="feat-title">Type Coercion</div><p class="feat-desc">Columns inferred as integers, floats, booleans, datetimes, or categories are coerced to their correct types — with currency and percentage symbols stripped.</p></div>
-    <div class="feat"><div class="feat-title">Format Validation</div><p class="feat-desc">Invalid emails, phone numbers, URLs, UUIDs, IPv4 addresses, and other semantic types are flagged in dedicated <code>_invalid_*</code> columns.</p></div>
-    <div class="feat"><div class="feat-title">Memory Optimization</div><p class="feat-desc">Integer columns are downcast to the smallest fitting type. Low-cardinality strings become categories. Typical savings: 20-40%.</p></div>
-    <div class="feat"><div class="feat-title">Quality Scoring</div><p class="feat-desc">Five-dimension weighted score: Completeness (30%), Uniqueness (20%), Validity (20%), Consistency (15%), Accuracy (15%). Issues catalogued as Critical / Warning / Info.</p></div>
-    <div class="feat"><div class="feat-title">SHA-256 Fingerprinting</div><p class="feat-desc">Cryptographic hash of both raw file bytes and DataFrame content — before and after cleaning. Use to verify data integrity at any time.</p></div>
-  </div>
-</section>
+class StandardiseCountry(CleanrPlugin):
+    name = "standardise_country"
+
+    def run(self, df):
+        if "country" in df.columns:
+            df["country"] = df["country"].str.upper().str.strip()
+            self.log("Standardised country codes")
+        return df
+
+engine = CleanREngine()
+engine.register_plugin(StandardiseCountry())
+engine.clean("data.csv", "clean.csv")'>Copy</button>
+    </div>
+  </section>
+
+  <!-- ── 06 Summary ── -->
+  <section class="section" id="summary">
+    <div class="section-label">06 — Reference</div>
+    <h2>What runs on every <code>cleanr file.csv</code></h2>
+    <p>These all happen automatically — no flags required.</p>
+
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="feat-title">Format Detection</div>
+        <p class="feat-desc">Magic-byte inspection, extension hints, and CSV dialect sniffing identify the format and encoding automatically — including compressed files.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-title">Column Normalization</div>
+        <p class="feat-desc">"First Name" becomes <code>first_name</code>. All column names are lowercased, punctuation replaced with underscores, duplicates disambiguated.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-title">Whitespace Cleaning</div>
+        <p class="feat-desc">Strips leading/trailing whitespace, collapses double spaces, and replaces empty strings and common null placeholders (N/A, null, None, nan) with proper NaN.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-title">Duplicate Removal</div>
+        <p class="feat-desc">Finds and removes fully duplicate rows. Near-duplicate detection is tracked in the quality report.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-title">Constant Column Drop</div>
+        <p class="feat-desc">Columns that carry zero information (single unique value across all rows) are automatically removed.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-title">Schema Inference</div>
+        <p class="feat-desc">Six-pass analysis per column: bool, integer, float, datetime (18 formats), semantic type (15 patterns), cardinality. Each inference has a confidence score.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-title">Smart Imputation</div>
+        <p class="feat-desc">Under 5% missing: median/mode. 5–40% missing: KNN with distance weighting. Over 40%: median with a warning. Datetimes: forward-fill then backward-fill.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-title">Type Coercion</div>
+        <p class="feat-desc">Columns inferred as integers, floats, booleans, datetimes, or categories are coerced to their correct types — with currency and percentage symbols stripped.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-title">Format Validation</div>
+        <p class="feat-desc">Invalid emails, phone numbers, URLs, UUIDs, IPv4 addresses, and other semantic types are flagged in dedicated <code>_invalid_*</code> columns.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-title">Memory Optimization</div>
+        <p class="feat-desc">Integer columns are downcast to the smallest fitting type. Low-cardinality strings become categories. Typical savings: 20–40%.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-title">Quality Scoring</div>
+        <p class="feat-desc">Five-dimension weighted score: Completeness (30%), Uniqueness (20%), Validity (20%), Consistency (15%), Accuracy (15%). Issues catalogued as Critical / Warning / Info.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-title">SHA-256 Fingerprinting</div>
+        <p class="feat-desc">Cryptographic hash of both raw file bytes and DataFrame content — before and after cleaning. Use to verify data integrity at any time.</p>
+      </div>
+    </div>
+  </section>
 
 </div>
 
 <script>
-document.querySelectorAll(".tab-btn").forEach(function(btn) {
-  btn.addEventListener("click", function() {
-    var tabs = this.closest(".tabs");
-    tabs.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
-    this.classList.add("active");
-    tabs.querySelectorAll(".tab-panel").forEach(function(p) { p.classList.remove("active"); });
-    tabs.querySelector("#tab-" + this.dataset.tab).classList.add("active");
-  });
-});
+(function () {
+  // ── Tab switching ──
+  document.querySelectorAll('.tab-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var tabs = btn.closest('.tabs');
+      tabs.querySelectorAll('.tab-btn').forEach(function (b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
 
-document.querySelectorAll(".copy-btn").forEach(function(btn) {
-  btn.addEventListener("click", function() {
-    var tmp = document.createElement("textarea");
-    tmp.innerHTML = this.dataset.copy;
-    var text = tmp.value;
-    navigator.clipboard.writeText(text).then(function() {
-      btn.textContent = "Copied";
-      btn.classList.add("copied");
-      setTimeout(function() {
-        btn.textContent = "Copy";
-        btn.classList.remove("copied");
-      }, 1600);
+      var target = 'tab-' + btn.dataset.tab;
+      tabs.querySelectorAll('.tab-panel').forEach(function (p) {
+        p.classList.remove('active');
+      });
+      var panel = document.getElementById(target);
+      if (panel) panel.classList.add('active');
     });
   });
-});
 
-var io = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add("visible"); });
-}, { threshold: 0.08 });
-document.querySelectorAll(".section").forEach(function(s) { io.observe(s); });
+  // ── Copy buttons ──
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      // Decode HTML entities in data-copy before writing to clipboard
+      var tmp = document.createElement('textarea');
+      tmp.innerHTML = btn.getAttribute('data-copy');
+      var text = tmp.value;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          btn.textContent = 'Copied';
+          btn.classList.add('copied');
+          setTimeout(function () {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+          }, 1600);
+        }).catch(function () {
+          fallbackCopy(text, btn);
+        });
+      } else {
+        fallbackCopy(text, btn);
+      }
+    });
+  });
+
+  function fallbackCopy(text, btn) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try {
+      document.execCommand('copy');
+      btn.textContent = 'Copied';
+      btn.classList.add('copied');
+      setTimeout(function () {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 1600);
+    } catch (e) {
+      btn.textContent = 'Failed';
+    }
+    document.body.removeChild(ta);
+  }
+
+  // ── Scroll-reveal ──
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06 });
+
+  document.querySelectorAll('.section').forEach(function (s) {
+    io.observe(s);
+  });
+}());
 </script>
 </body>
 </html>
